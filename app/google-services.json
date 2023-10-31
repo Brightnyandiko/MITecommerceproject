@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "309112285727",
+    "project_id": "ecommerce-e9313",
+    "storage_bucket": "ecommerce-e9313.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309112285727:android:d5a4c33a7fadcb6703032a",
+        "android_client_info": {
+          "package_name": "com.bright.ecommerce"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaRMOxG8ljAV5kEQ7kMmo4qm9SKSjvxR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
