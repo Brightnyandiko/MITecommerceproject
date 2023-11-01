@@ -39,9 +39,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import com.bright.ecommerce.Model.Product
 import com.bright.ecommerce.R
 import java.util.UUID
 
@@ -74,7 +78,7 @@ fun PublishScreen(ondiscard: () -> Unit, onSubmit: (Product) -> Unit) {
 
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize().background(MaterialTheme.colors.primary)
+                .fillMaxSize().background(MaterialTheme.colorScheme.primary)
                 .padding(paddingValues = padding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -94,7 +98,7 @@ fun PublishScreen(ondiscard: () -> Unit, onSubmit: (Product) -> Unit) {
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp), horizontalArrangement = Arrangement.Start) {
 
-                    Text(text = "Product Details", fontSize = 16.sp, fontWeight = FontWeight.SemiBold,   color = MaterialTheme.colors.primaryVariant,)
+                    Text(text = "Product Details", fontSize = 16.sp, fontWeight = FontWeight.SemiBold,   color = MaterialTheme.colorScheme.primaryContainer,)
                 }
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -162,11 +166,11 @@ fun Input(
         singleLine = line
         ,
         colors = TextFieldDefaults.textFieldColors(
-            focusedIndicatorColor =   MaterialTheme.colors.onPrimary,
-            unfocusedIndicatorColor =  MaterialTheme.colors.onPrimary,
-            textColor =  MaterialTheme.colors.onPrimary,
-            focusedLabelColor =  MaterialTheme.colors.onPrimary,
-            cursorColor =  MaterialTheme.colors.onPrimary,
+            focusedIndicatorColor =   MaterialTheme.colorScheme.onPrimary,
+            unfocusedIndicatorColor =  MaterialTheme.colorScheme.onPrimary,
+            textColor =  MaterialTheme.colorScheme.onPrimary,
+            focusedLabelColor =  MaterialTheme.colorScheme.onPrimary,
+            cursorColor =  MaterialTheme.colorScheme.onPrimary,
         )
         ,
         modifier = Modifier
@@ -183,14 +187,14 @@ fun PublishBottomBar(onSubmit: () -> Unit, ondiscard: () -> Unit) {
 
     Row(
         modifier = Modifier
-            .fillMaxWidth().background(MaterialTheme.colors.primary)
+            .fillMaxWidth().background(MaterialTheme.colorScheme.primary)
             .padding(16.dp), horizontalArrangement = Arrangement.End
     ) {
 
 
         OutlinedButton(onClick = { ondiscard() }) {
 
-            Text(text = "Discard", color = MaterialTheme.colors.primaryVariant)
+            Text(text = "Discard", color = MaterialTheme.colorScheme.primaryContainer)//changed color to colorScheme and primaryVariant to primaryContainer
         }
 
         Spacer(modifier = Modifier.width(16.dp))
@@ -199,9 +203,9 @@ fun PublishBottomBar(onSubmit: () -> Unit, ondiscard: () -> Unit) {
             onClick = {
                 onSubmit()
             },
-            colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primaryVariant)
+            colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primaryContainer)
         ) {
-            Text(text = "Submit", color = MaterialTheme.colors.primary)
+            Text(text = "Submit", color = MaterialTheme.colorScheme.primary)
         }
 
     }
@@ -212,7 +216,7 @@ fun PublishTopAppBar(ondiscard: () -> Unit) {
 
     Row(
         Modifier
-            .fillMaxWidth().background(MaterialTheme.colors.primary),
+            .fillMaxWidth().background(MaterialTheme.colorScheme.primary),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
@@ -222,13 +226,13 @@ fun PublishTopAppBar(ondiscard: () -> Unit) {
             modifier = Modifier
                 .padding(16.dp)
                 .clickable { ondiscard() },
-            tint = MaterialTheme.colors.primaryVariant
+            tint = MaterialTheme.colorScheme.primaryContainer//changed color to colorScheme and primaryVariant to primaryContainer
         )
         Text(
             text = "Publish",
             fontWeight = FontWeight.SemiBold,
             fontSize = 18.sp,
-            color = MaterialTheme.colors.primaryVariant,
+            color = MaterialTheme.colorScheme.primaryContainer,//changed color to colorScheme and primaryVariant to variant
         )
 
 

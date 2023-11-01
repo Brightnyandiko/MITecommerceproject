@@ -16,11 +16,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -39,6 +44,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
+import coil.compose.AsyncImage
+import com.bright.ecommerce.Data.ProductViewmodel
+import com.bright.ecommerce.Model.Cartitem
+import com.bright.ecommerce.Model.Product
+import com.bright.ecommerce.Sealed.Cartsealed
+import com.bright.ecommerce.Sealed.ProductSealed
 import com.bright.ecommerce.ui.theme.screens.Component.TextSeacrhBar
 
 @Composable
@@ -52,7 +64,7 @@ fun Home(productViewmodel: ProductViewmodel, onclick: (Product) -> Unit, oncart:
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 
 
-                CircularProgressIndicator(color = MaterialTheme.colors.secondary)
+                CircularProgressIndicator(color = MaterialTheme.colorScheme.secondary)
 
             }
 
@@ -151,7 +163,7 @@ fun LazyHome(
 
     Scaffold(
         topBar = { AppBar({ oncart() },isthem) }, modifier = Modifier
-            .background(MaterialTheme.colors.primary)
+            .background(MaterialTheme.colorScheme.primary)
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) { paddingvalue ->
 
@@ -159,7 +171,7 @@ fun LazyHome(
         LazyColumn(
             Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colors.primary)
+                .background(MaterialTheme.colorScheme.primary)
                 .padding(paddingvalue)
         ) {
 
@@ -191,7 +203,7 @@ fun LazyHome(
                     text = "Popular Product for you",
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 18.sp,
-                    color = MaterialTheme.colors.primaryVariant
+                    color = MaterialTheme.colorScheme.primaryContainer
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -232,7 +244,7 @@ fun LazyHome(
                     text = "Top Product for you",
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 18.sp,
-                    color = MaterialTheme.colors.primaryVariant
+                    color = MaterialTheme.colorScheme.primaryContainer
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -323,7 +335,7 @@ fun Item(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colors.primary)
+            .background(MaterialTheme.colorScheme.primary)
             .height(250.dp)
             .padding(16.dp)
             .clickable { onclick() }
@@ -349,7 +361,7 @@ fun Item(
             )
 
             Icon(
-                imageVector = if (iscart) Icons.Default.AddShoppingCart else Icons.Default.RemoveShoppingCart,
+                imageVector = if (iscart) Icons.Default.ShoppingCart else Icons.Default.ShoppingCart,
                 contentDescription = null,
                 modifier = Modifier.clickable {
 
@@ -416,13 +428,13 @@ fun ItemImageHome(
                 .padding(8.dp)
                 .size(52.dp)
                 .clip(CircleShape)
-                .background(MaterialTheme.colors.primary)
+                .background(MaterialTheme.colorScheme.primary)
                 .padding(16.dp)
                 .clickable {
                     if (isFavourite) productViewmodel.removeFav(product) else productViewmodel.favadd(
                         product
                     )
-                }, tint = MaterialTheme.colors.primaryVariant)
+                }, tint = MaterialTheme.colorScheme.primaryContainer)
 
     }
 }
@@ -463,12 +475,12 @@ fun SimilarHomeProduct(
                 text = "$${product.price}",
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colors.primaryVariant
+                color = MaterialTheme.colorScheme.primaryContainer//changed color to colorScheme and primaryVariant to primaryContainer
             )
 
             Icon(
-                tint=MaterialTheme.colors.primaryVariant,
-                imageVector = if (iscart) Icons.Filled.ShoppingBag else Icons.Outlined.ShoppingBag,
+                tint=MaterialTheme.colorScheme.primaryContainer,
+                imageVector = if (iscart) Icons.Filled.AddCircle else Icons.Outlined.AddCircle,
                 contentDescription = null,
                 modifier = Modifier.clickable {
 
@@ -501,7 +513,7 @@ fun SimilarHomeProduct(
             text = product.productname,
             fontSize = 14.sp,
             fontWeight = FontWeight.Normal,
-            color = MaterialTheme.colors.onPrimary
+            color = MaterialTheme.colorScheme.onPrimary
         )
     }
 
@@ -548,7 +560,7 @@ fun AppBar(oncart: () -> Unit, isthem: MutableState<Boolean>) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colors.primary),
+            .background(MaterialTheme.colorScheme.primary),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -559,28 +571,28 @@ fun AppBar(oncart: () -> Unit, isthem: MutableState<Boolean>) {
 
 
             Icon(
-                imageVector =  Icons.Default.Light,
+                imageVector =  Icons.Default.Build,
                 contentDescription = null,
                 modifier = Modifier
                     .padding(end = 8.dp, bottom = 8.dp, top = 8.dp)
                     .size(52.dp)
                     .clip(CircleShape)
-                    .background(MaterialTheme.colors.primaryVariant)
+                    .background(MaterialTheme.colorScheme.primaryContainer)
                     .padding(16.dp)
                     .clickable {
 
                         isthem.value = !isthem.value
 
-                    }, tint = MaterialTheme.colors.primary)
+                    }, tint = MaterialTheme.colorScheme.primary)
 
-            Text(text = "Discover", fontSize = 24.sp, color = MaterialTheme.colors.primaryVariant)
+            Text(text = "Discover", fontSize = 24.sp, color = MaterialTheme.colorScheme.primaryContainer)
         }
 
 
         Icon(
-            imageVector = Icons.Default.ShoppingBag,
+            imageVector = Icons.Default.ShoppingCart,
             contentDescription = null,
-            tint= MaterialTheme.colors.primaryVariant,
+            tint= MaterialTheme.colorScheme.primaryContainer,
             modifier = Modifier.clickable { oncart() })
 
     }

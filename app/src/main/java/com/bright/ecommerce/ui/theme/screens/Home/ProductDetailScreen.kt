@@ -17,14 +17,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -41,6 +44,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
+import coil.compose.AsyncImage
+import com.bright.ecommerce.Data.ProductViewmodel
+import com.bright.ecommerce.Model.Cartitem
+import com.bright.ecommerce.Model.Product
+import com.bright.ecommerce.Sealed.Cartsealed
+import com.bright.ecommerce.Sealed.ProductSealed
 
 @Composable
 fun ProductDetailScreen(productViewmodel: ProductViewmodel, onback :()->Unit,onnext: () -> Unit,onclick: (Product) -> Unit) {
@@ -55,7 +65,7 @@ fun ProductDetailScreen(productViewmodel: ProductViewmodel, onback :()->Unit,onn
             Box(modifier = Modifier.fillMaxSize()) {
 
 
-                CircularProgressIndicator(color = MaterialTheme.colors.secondary)
+                CircularProgressIndicator(color = MaterialTheme.colorScheme.secondary)
 
             }
 
@@ -145,13 +155,13 @@ fun NestedScrollbarProductDetail(
 ) {
 
     Scaffold(modifier = Modifier
-        .fillMaxSize().background(MaterialTheme.colors.primary)
+        .fillMaxSize().background(MaterialTheme.colorScheme.primary)
         .padding(horizontal = 16.dp, vertical = 8.dp), topBar = { ProductDetailAppBar(onback,onnext) }, bottomBar = {}) { paddingValues ->
 
 
         LazyColumn(
             Modifier
-                .fillMaxSize().background(MaterialTheme.colors.primary)
+                .fillMaxSize().background(MaterialTheme.colorScheme.primary)
                 .padding(paddingValues = paddingValues)
         ) {
 
@@ -170,7 +180,7 @@ fun NestedScrollbarProductDetail(
                 Text(
                     text = "SimilarProduct",
                     fontSize = 18.sp,
-                    color = MaterialTheme.colors.primaryVariant,
+                    color = MaterialTheme.colorScheme.primaryContainer,//changed color to colorScheme and primaryVariant to primaryContainer
                     fontWeight = FontWeight.SemiBold
                 )
 
@@ -253,14 +263,14 @@ fun ProductDetail(
             modifier = Modifier.fillMaxWidth(),
             text = product.productname,
             fontWeight = FontWeight.SemiBold,
-            color = MaterialTheme.colors.primaryVariant,
+            color = MaterialTheme.colorScheme.primaryContainer,//changed color to colorScheme and primaryVariant to primaryContainer
             textAlign = TextAlign.Start,
             fontSize = 24.sp
         )
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        Text(text = product.subdescription, color = MaterialTheme.colors.primaryVariant)
+        Text(text = product.subdescription, color = MaterialTheme.colorScheme.primaryContainer)
 
 
         Pricing(product,iscart,productViewmodel, oncart = { oncart() })
@@ -290,14 +300,14 @@ fun ItemImageProductDetail(
 
         )
 
-        Icon(tint = MaterialTheme.colors.primaryVariant,
+        Icon(tint = MaterialTheme.colorScheme.primaryContainer,
             imageVector = if (isFavourite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
             contentDescription = null,
             modifier = Modifier
                 .padding(8.dp)
                 .size(52.dp)
                 .clip(CircleShape)
-                .background(MaterialTheme.colors.primary)
+                .background(MaterialTheme.colorScheme.primary)
                 .padding(16.dp)
                 .clickable {
                     if (isFavourite) productViewmodel.removeFav(product) else productViewmodel.favadd(
@@ -328,14 +338,14 @@ fun Pricing(product: Product, iscart: Boolean,productViewmodel: ProductViewmodel
                 text = product.productname,
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 18.sp,
-                color = MaterialTheme.colors.primaryVariant
+                color = MaterialTheme.colorScheme.primaryContainer
             )
 
             Text(
                 text = "$${product.price}",
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 18.sp,
-                color = MaterialTheme.colors.primaryVariant
+                color = MaterialTheme.colorScheme.primaryContainer
             )
 
 
@@ -353,9 +363,9 @@ fun Pricing(product: Product, iscart: Boolean,productViewmodel: ProductViewmodel
 
                 }, modifier = Modifier
                     .fillMaxWidth().padding(horizontal = 16.dp),
-                colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primaryVariant)
+                colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primaryContainer)
             ) {
-                Text(text = "Gotocart", color = MaterialTheme.colors.primary, textAlign = TextAlign.Center)
+                Text(text = "Gotocart", color = MaterialTheme.colorScheme.primary, textAlign = TextAlign.Center)
             }
 
         }
@@ -381,9 +391,9 @@ fun Pricing(product: Product, iscart: Boolean,productViewmodel: ProductViewmodel
 
                 }, modifier = Modifier
                     .fillMaxWidth().padding(horizontal = 16.dp),
-                colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primaryVariant)
+                colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primaryContainer)
             ) {
-                Text(text = "Addtocart", color = MaterialTheme.colors.primary, textAlign = TextAlign.Center)
+                Text(text = "Addtocart", color = MaterialTheme.colorScheme.primary, textAlign = TextAlign.Center)
             }
 
         }
@@ -406,7 +416,7 @@ fun Pricing(product: Product, iscart: Boolean,productViewmodel: ProductViewmodel
             modifier = Modifier
                 .fillMaxWidth().padding(horizontal = 16.dp)
         ) {
-            Text(text = "Buy", color = MaterialTheme.colors.primaryVariant, textAlign = TextAlign.Center)
+            Text(text = "Buy", color = MaterialTheme.colorScheme.primaryContainer, textAlign = TextAlign.Center)
         }
     }
 }
@@ -418,14 +428,14 @@ fun ProductDetailAppBar(onback: () -> Unit, onnext: () -> Unit) {
 
 
     Row(
-        modifier = Modifier.fillMaxWidth().background(MaterialTheme.colors.primary),
+        modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.primary),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        Icon(tint = MaterialTheme.colors.primaryVariant,imageVector = Icons.Rounded.ArrowBack, contentDescription = null, modifier = Modifier.clickable { onback() })
+        Icon(tint = MaterialTheme.colorScheme.primaryContainer,imageVector = Icons.Rounded.ArrowBack, contentDescription = null, modifier = Modifier.clickable { onback() })
 
-        Icon(tint = MaterialTheme.colors.primaryVariant,imageVector = Icons.Default.ShoppingBag, contentDescription = null, modifier = Modifier.clickable { onnext() })
+        Icon(tint = MaterialTheme.colorScheme.primaryContainer,imageVector = Icons.Default.ShoppingCart, contentDescription = null, modifier = Modifier.clickable { onnext() })
 
 
     }
@@ -460,7 +470,7 @@ fun SimilarProduct(product: Product,onclick:()->Unit) {
                 color = Color.Black
             )
 
-            Icon(imageVector = Icons.Default.ShoppingBag, contentDescription = null)
+            Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = null)
 
 
         }

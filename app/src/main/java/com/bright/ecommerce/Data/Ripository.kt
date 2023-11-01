@@ -1,9 +1,9 @@
 package com.bright.ecommerce.Data
 
 import androidx.core.net.toUri
-import com.example.e_commerce.Model.Cartitem
-import com.example.e_commerce.Model.Order
-import com.example.e_commerce.Model.Product
+import com.bright.ecommerce.Model.Cartitem
+import com.bright.ecommerce.Model.Order
+import com.bright.ecommerce.Model.Product
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
@@ -11,7 +11,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
-import java.util.*
+import java.util.Date
 
 class ProductRepositery {
 

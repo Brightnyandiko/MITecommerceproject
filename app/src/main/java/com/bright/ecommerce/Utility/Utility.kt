@@ -1,4 +1,4 @@
-package com.bright.ecommerce.Navigation
+package com.bright.ecommerce.Utility
 
 object Utility {
 

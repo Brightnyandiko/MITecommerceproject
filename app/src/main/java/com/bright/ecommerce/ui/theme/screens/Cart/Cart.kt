@@ -1,5 +1,6 @@
 package com.bright.ecommerce.ui.theme.screens.Cart
 
+import android.graphics.drawable.Icon
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,10 +16,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -36,9 +39,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
+import coil.compose.AsyncImage
+import com.bright.ecommerce.Data.ProductViewmodel
+import com.bright.ecommerce.Model.Cartitem
+import com.bright.ecommerce.Model.Product
+import com.bright.ecommerce.Sealed.Cartsealed
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Cart(productViewmodel: ProductViewmodel,onback:()->Unit,onnext:(Product)->Unit,onsummary: () -> Unit) {
+fun Cart(productViewmodel: ProductViewmodel, onback:()->Unit, onnext:(Product)->Unit, onsummary: () -> Unit) {
 
     when (val result = productViewmodel.readcard.value) {
 
@@ -78,7 +88,7 @@ fun Cart(productViewmodel: ProductViewmodel,onback:()->Unit,onnext:(Product)->Un
 
                     Column(
                         Modifier
-                            .fillMaxSize().background(MaterialTheme.colors.primary)
+                            .fillMaxSize().background(MaterialTheme.colorScheme.primary)
                             .padding(it),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
@@ -88,7 +98,7 @@ fun Cart(productViewmodel: ProductViewmodel,onback:()->Unit,onnext:(Product)->Un
                             text = "Cart is Empty!",
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 18.sp,
-                            color = MaterialTheme.colors.primaryVariant
+                            color = MaterialTheme.colorScheme.primaryContainer//changed color to colorScheme and primaryVariant to primaryContainer
                         )
 
                     }
@@ -143,7 +153,7 @@ fun UI(
 
         LazyColumn(
             Modifier
-                .fillMaxSize().background(MaterialTheme.colors.primary)
+                .fillMaxSize().background(MaterialTheme.colorScheme.primary)
                 .padding(it)
                 .padding(16.dp)) {
 
@@ -187,14 +197,14 @@ fun CartBottombar(cartlist: MutableList<Cartitem>,total:Int,onsummary: () -> Uni
                     text = "Subtotal",
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 14.sp,
-                    color = MaterialTheme.colors.primaryVariant
+                    color = MaterialTheme.colorScheme.primaryContainer///changed color to colorScheme and primaryVariant to primaryContainer
                 )
 
                 Text(
                     text = "$${total}",
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 14.sp,
-                    color = MaterialTheme.colors.primaryVariant
+                    color = MaterialTheme.colorScheme.primaryContainer
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
@@ -205,14 +215,14 @@ fun CartBottombar(cartlist: MutableList<Cartitem>,total:Int,onsummary: () -> Uni
                     text = "ShippingCharge",
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 14.sp,
-                    color = MaterialTheme.colors.primaryVariant
+                    color = MaterialTheme.colorScheme.primaryContainer
                 )
 
                 Text(
                     text = "$${2000}",
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 14.sp,
-                    color = MaterialTheme.colors.primaryVariant
+                    color = MaterialTheme.colorScheme.primaryContainer
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
@@ -223,14 +233,14 @@ fun CartBottombar(cartlist: MutableList<Cartitem>,total:Int,onsummary: () -> Uni
                     text = "Total",
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 14.sp,
-                    color = MaterialTheme.colors.primaryVariant
+                    color = MaterialTheme.colorScheme.primaryContainer
                 )
 
                 Text(
                     text = "$${total+2000}",
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 14.sp,
-                    color = MaterialTheme.colors.primaryVariant
+                    color = MaterialTheme.colorScheme.primaryContainer
                 )
             }
 
@@ -244,9 +254,9 @@ fun CartBottombar(cartlist: MutableList<Cartitem>,total:Int,onsummary: () -> Uni
                 Button(contentPadding = PaddingValues(horizontal = 8.dp, vertical = 16.dp), shape = CircleShape,onClick = { onsummary()},  modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp), colors = ButtonDefaults.buttonColors(
-                    MaterialTheme.colors.primaryVariant)) {
+                    MaterialTheme.colorScheme.primaryContainer)) {
 
-                    Text(text = "Checkout", color = MaterialTheme.colors.primary)
+                    Text(text = "Checkout", color = MaterialTheme.colorScheme.primary)
                 }
             }
         }
@@ -267,7 +277,7 @@ fun CartTopBar(back: () -> Unit) {
 
     Row(
         Modifier
-            .fillMaxWidth().background(MaterialTheme.colors.primary),
+            .fillMaxWidth().background(MaterialTheme.colorScheme.primary),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
@@ -277,13 +287,13 @@ fun CartTopBar(back: () -> Unit) {
             modifier = Modifier
                 .padding(16.dp)
                 .clickable { back() },
-            tint = MaterialTheme.colors.primaryVariant
+            tint = MaterialTheme.colorScheme.primaryContainer
         )
         Text(
             text = "Cart",
             fontWeight = FontWeight.SemiBold,
             fontSize = 18.sp,
-            color = MaterialTheme.colors.primaryVariant
+            color = MaterialTheme.colorScheme.primaryContainer
         )
 
 
@@ -304,7 +314,7 @@ fun CartItem(cartitem: Cartitem, productViewmodel: ProductViewmodel, onnext: () 
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(16.dp))
-                .background(MaterialTheme.colors.secondary)
+                .background(MaterialTheme.colorScheme.secondary)
                 .padding(horizontal = 16.dp, vertical = 8.dp)
             ,
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -313,9 +323,9 @@ fun CartItem(cartitem: Cartitem, productViewmodel: ProductViewmodel, onnext: () 
 
             Column {
 
-                Text(text = "${cartitem.productname}", fontWeight = FontWeight.SemiBold, fontSize = 18.sp, color = MaterialTheme.colors.primaryVariant)
+                Text(text = "${cartitem.productname}", fontWeight = FontWeight.SemiBold, fontSize = 18.sp, color = MaterialTheme.colorScheme.primaryContainer)
                 Spacer(modifier = Modifier.height(2.dp))
-                Text(text = "$${cartitem.price}", fontWeight = FontWeight.SemiBold, fontSize = 16.sp, color = MaterialTheme.colors.primaryVariant)
+                Text(text = "$${cartitem.price}", fontWeight = FontWeight.SemiBold, fontSize = 16.sp, color = MaterialTheme.colorScheme.primaryContainer)
                 Spacer(modifier = Modifier.height(4.dp))
                 Counter(productViewmodel,cartitem)
 
@@ -349,26 +359,26 @@ fun Counter(productViewmodel: ProductViewmodel, cartitem: Cartitem) {
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        Icon(tint=MaterialTheme.colors.primaryVariant,
+        Icon(tint=MaterialTheme.colorScheme.primaryContainer,//changed color to colorScheme and primaryVariant to primaryContainer
             imageVector = Icons.Default.Add,
             contentDescription = null,
             modifier = Modifier
                 .size(42.dp)
                 .clip(CircleShape)
-                .background(MaterialTheme.colors.primary)
+                .background(MaterialTheme.colorScheme.primary)
                 .padding(8.dp)
                 .clickable { productViewmodel.addtocart(cartitem.copy(quantity = cartitem.quantity + 1)) }
         )
 
-        Text("${cartitem.quantity}", color = MaterialTheme.colors.primaryVariant)
+        Text(text = "${cartitem.quantity}", color = MaterialTheme.colorScheme.primaryContainer,//changed color to colorScheme and primaryVariant to primaryContainer)
 
-        Icon(tint =MaterialTheme.colors.primaryVariant,
-            imageVector = Icons.Default.Remov,
+        Icon(tint =MaterialTheme.colorScheme.primaryContainer,
+            imageVector = Icons.Default.Delete,
             contentDescription = null,
             modifier = Modifier
                 .size(42.dp)
                 .clip(CircleShape)
-                .background(MaterialTheme.colors.primary)
+                .background(MaterialTheme.colorScheme.primary)
                 .padding(8.dp)
                 .clickable {
 
@@ -382,6 +392,8 @@ fun Counter(productViewmodel: ProductViewmodel, cartitem: Cartitem) {
 
                 }
         )
+        )
+
 
     }
 

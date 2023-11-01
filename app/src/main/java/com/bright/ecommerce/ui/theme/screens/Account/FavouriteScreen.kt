@@ -5,8 +5,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -17,6 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bright.ecommerce.Data.ProductViewmodel
+import com.bright.ecommerce.Model.Product
+import com.bright.ecommerce.Sealed.ProductSealed
+import com.bright.ecommerce.ui.theme.screens.Home.Item
 
 @Composable
 fun FavouriteScreen(productViewmodel: ProductViewmodel,onnext:(Product)->Unit){
@@ -69,11 +76,11 @@ fun FavouriteScreen(productViewmodel: ProductViewmodel,onnext:(Product)->Unit){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Favourite(productViewmodel: ProductViewmodel,favouritelist:MutableList<Product>,onnext: (Product) -> Unit){
+fun Favourite(productViewmodel: ProductViewmodel, favouritelist:MutableList<Product>, onnext: (Product) -> Unit){
 
-    Scaffold(topBar = { FavTopBar() }, modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.primary).padding(horizontal = 16.dp, vertical = 8.dp)) { paddingValues ->
+    Scaffold(topBar = { FavTopBar() }, modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.primary).padding(horizontal = 16.dp, vertical = 8.dp)) { paddingValues ->
 
-        LazyVerticalGrid(columns = GridCells.Fixed(2), modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.primary).padding(paddingValues)){
+        LazyVerticalGrid(columns = GridCells.Fixed(2), modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.primary).padding(paddingValues)){
 
             items(favouritelist){
 
@@ -98,7 +105,7 @@ fun FavTopBar() {
 
     Row(
         Modifier
-            .fillMaxWidth().background(MaterialTheme.colors.primary).padding(horizontal = 16.dp, vertical = 8.dp),
+            .fillMaxWidth().background(MaterialTheme.colorScheme.primary).padding(horizontal = 16.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
@@ -106,7 +113,7 @@ fun FavTopBar() {
             text = "Favourite",
             fontWeight = FontWeight.SemiBold,
             fontSize = 24.sp,
-            color = MaterialTheme.colors.primaryVariant
+            color = MaterialTheme.colorScheme.primary
         )
 
 
