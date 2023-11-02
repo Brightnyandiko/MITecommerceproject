@@ -1,6 +1,5 @@
 package com.bright.ecommerce.ui.theme.screens.Cart
 
-import android.graphics.drawable.Icon
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -21,7 +20,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -46,7 +45,6 @@ import com.bright.ecommerce.Model.Cartitem
 import com.bright.ecommerce.Model.Product
 import com.bright.ecommerce.Sealed.Cartsealed
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Cart(productViewmodel: ProductViewmodel, onback:()->Unit, onnext:(Product)->Unit, onsummary: () -> Unit) {
 
@@ -131,7 +129,6 @@ fun Cart(productViewmodel: ProductViewmodel, onback:()->Unit, onnext:(Product)->
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UI(
     productViewmodel: ProductViewmodel,
@@ -370,10 +367,10 @@ fun Counter(productViewmodel: ProductViewmodel, cartitem: Cartitem) {
                 .clickable { productViewmodel.addtocart(cartitem.copy(quantity = cartitem.quantity + 1)) }
         )
 
-        Text(text = "${cartitem.quantity}", color = MaterialTheme.colorScheme.primaryContainer,//changed color to colorScheme and primaryVariant to primaryContainer)
+        Text(text = "${cartitem.quantity}", color = MaterialTheme.colorScheme.primaryContainer,)//changed color to colorScheme and primaryVariant to primaryContainer
 
         Icon(tint =MaterialTheme.colorScheme.primaryContainer,
-            imageVector = Icons.Default.Delete,
+            imageVector = Icons.Default.Remove,
             contentDescription = null,
             modifier = Modifier
                 .size(42.dp)
@@ -392,7 +389,7 @@ fun Counter(productViewmodel: ProductViewmodel, cartitem: Cartitem) {
 
                 }
         )
-        )
+
 
 
     }

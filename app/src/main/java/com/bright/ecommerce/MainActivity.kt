@@ -1,6 +1,7 @@
 package com.bright.ecommerce
 
 
+import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
@@ -10,6 +11,8 @@ import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -25,6 +28,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.bright.ecommerce.Data.ProductRepositery
 import com.bright.ecommerce.Data.ProductViewmodel
@@ -257,35 +261,46 @@ class MainActivity : ComponentActivity() {
         val items = listOf(
             E_commerce.Home, E_commerce.Order, E_commerce.Cart, E_commerce.Account
         )
-
         Scaffold(
             bottomBar = {
+
+                MaterialTheme.colorScheme.primary
+                androidx.compose.material3.LocalAbsoluteTonalElevation//changed surfaceColorAtElevation to LocalAbsoluteTonalElevation
+
                 BottomAppBar(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    tonalElevation = 8.dp
-                ) {
-                    val navBackStackEntry by navController.currentBackStackEntryAsState()
-                    val currentRoute = navBackStackEntry?.destination?.route
-                    items.forEach { item ->
-                        IconButton(
-                            onClick = {
-                                // Handle item click here, similar to your original code
-                                // Use item.route to navigate to the corresponding destination
+                    actions = {
+                        val navController = rememberNavController()
+                        val navBackStackEntry by navController.currentBackStackEntryAsState()
+                        val currentRoute = navBackStackEntry?.destination?.route
+
+                        items.forEach {
+                            IconButton(onClick = {
+
+                                if (currentRoute != it.route) {
+                                    navController.graph.startDestinationRoute?.let {
+
+                                        navController.popBackStack(it, true)
+                                    }
+                                    navController.navigate(it.route) {
+                                        LaunchSingleTop = true
+
+                                    }
+                                }
+                            })
+
+                            {
+                                Icon(Icons.Filled.Check, contentDescription = "Localized description")
                             }
-                        ) {
-                            Icon(
-                                imageVector = item.icons,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primaryContainer
-                            )
                         }
-                    }
-                }
-            }
+
+                    },
+
+                    )
+            },
         ) { innerPadding ->
             Text(
                 modifier = Modifier.padding(innerPadding),
-                text = "Example of a scaffold with a custom bottom app bar."
+                text = "Example of a scaffold with a bottom app bar."
             )
         }
     }

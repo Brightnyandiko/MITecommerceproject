@@ -21,11 +21,15 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.AddShoppingCart
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.RemoveShoppingCart
+import androidx.compose.material.icons.filled.ShoppingBag
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.AddCircle
+import androidx.compose.material.icons.outlined.ShoppingBag
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -361,7 +365,7 @@ fun Item(
             )
 
             Icon(
-                imageVector = if (iscart) Icons.Default.ShoppingCart else Icons.Default.ShoppingCart,
+                imageVector = if (iscart) Icons.Default.AddShoppingCart else Icons.Default.RemoveShoppingCart,
                 contentDescription = null,
                 modifier = Modifier.clickable {
 
@@ -480,7 +484,7 @@ fun SimilarHomeProduct(
 
             Icon(
                 tint=MaterialTheme.colorScheme.primaryContainer,
-                imageVector = if (iscart) Icons.Filled.AddCircle else Icons.Outlined.AddCircle,
+                imageVector = if (iscart) Icons.Filled.ShoppingBag else Icons.Outlined.ShoppingBag,
                 contentDescription = null,
                 modifier = Modifier.clickable {
 
@@ -571,7 +575,7 @@ fun AppBar(oncart: () -> Unit, isthem: MutableState<Boolean>) {
 
 
             Icon(
-                imageVector =  Icons.Default.Build,
+                imageVector =  Icons.Default.ShoppingBag,
                 contentDescription = null,
                 modifier = Modifier
                     .padding(end = 8.dp, bottom = 8.dp, top = 8.dp)
