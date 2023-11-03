@@ -168,7 +168,7 @@ fun Input(
         colors = TextFieldDefaults.textFieldColors(
             focusedIndicatorColor =   MaterialTheme.colorScheme.onPrimary,
             unfocusedIndicatorColor =  MaterialTheme.colorScheme.onPrimary,
-            textColor =  MaterialTheme.colorScheme.onPrimary,
+            focusedTextColor =  MaterialTheme.colorScheme.onPrimary,
             focusedLabelColor =  MaterialTheme.colorScheme.onPrimary,
             cursorColor =  MaterialTheme.colorScheme.onPrimary,
         )

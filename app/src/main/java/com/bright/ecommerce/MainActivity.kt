@@ -1,7 +1,6 @@
 package com.bright.ecommerce
 
 
-import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
@@ -11,10 +10,7 @@ import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -23,12 +19,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.bright.ecommerce.Data.ProductRepositery
 import com.bright.ecommerce.Data.ProductViewmodel
@@ -255,7 +250,6 @@ class MainActivity : ComponentActivity() {
 
 
     }
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun BottomAppBarExample() {
         val items = listOf(
@@ -269,6 +263,7 @@ class MainActivity : ComponentActivity() {
 
                 BottomAppBar(
                     actions = {
+                        var LaunchSingleTop = true
                         val navController = rememberNavController()
                         val navBackStackEntry by navController.currentBackStackEntryAsState()
                         val currentRoute = navBackStackEntry?.destination?.route
@@ -289,7 +284,11 @@ class MainActivity : ComponentActivity() {
                             })
 
                             {
-                                Icon(Icons.Filled.Check, contentDescription = "Localized description")
+                                Icon(
+                                    imageVector = it.icons,
+                                    contentDescription = null,
+                                    tint = if (currentRoute == it.route) Color.DarkGray else Color.LightGray
+                                )
                             }
                         }
 
@@ -358,7 +357,6 @@ class MainActivity : ComponentActivity() {
 //    }
 
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @RequiresApi(Build.VERSION_CODES.O)
     @Composable
     fun Navigation(istheme: MutableState<Boolean>) {
@@ -379,7 +377,7 @@ class MainActivity : ComponentActivity() {
 
                 Unit
             } else {
-                BottomAppBarExample(navController = navController)
+                BottomAppBarExample()
             }
 
 
