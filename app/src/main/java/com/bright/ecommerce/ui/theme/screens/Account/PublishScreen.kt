@@ -17,18 +17,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedButton
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -46,10 +45,10 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.bright.ecommerce.Model.Product
-import com.bright.ecommerce.R
+import com.example.e_commerce.R
 import java.util.UUID
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun PublishScreen(ondiscard: () -> Unit, onSubmit: (Product) -> Unit) {
 
@@ -78,7 +77,7 @@ fun PublishScreen(ondiscard: () -> Unit, onSubmit: (Product) -> Unit) {
 
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize().background(MaterialTheme.colorScheme.primary)
+                .fillMaxSize().background(MaterialTheme.colors.primary)
                 .padding(paddingValues = padding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -98,7 +97,7 @@ fun PublishScreen(ondiscard: () -> Unit, onSubmit: (Product) -> Unit) {
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp), horizontalArrangement = Arrangement.Start) {
 
-                    Text(text = "Product Details", fontSize = 16.sp, fontWeight = FontWeight.SemiBold,   color = MaterialTheme.colorScheme.primaryContainer,)
+                    Text(text = "Product Details", fontSize = 16.sp, fontWeight = FontWeight.SemiBold,   color = MaterialTheme.colors.primaryVariant,)
                 }
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -143,7 +142,6 @@ fun PublishScreen(ondiscard: () -> Unit, onSubmit: (Product) -> Unit) {
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Input(
     input: String,
@@ -166,11 +164,11 @@ fun Input(
         singleLine = line
         ,
         colors = TextFieldDefaults.textFieldColors(
-            focusedIndicatorColor =   MaterialTheme.colorScheme.onPrimary,
-            unfocusedIndicatorColor =  MaterialTheme.colorScheme.onPrimary,
-            focusedTextColor =  MaterialTheme.colorScheme.onPrimary,
-            focusedLabelColor =  MaterialTheme.colorScheme.onPrimary,
-            cursorColor =  MaterialTheme.colorScheme.onPrimary,
+            focusedIndicatorColor =   MaterialTheme.colors.onPrimary,
+            unfocusedIndicatorColor =  MaterialTheme.colors.onPrimary,
+            textColor =  MaterialTheme.colors.onPrimary,
+            focusedLabelColor =  MaterialTheme.colors.onPrimary,
+            cursorColor =  MaterialTheme.colors.onPrimary,
         )
         ,
         modifier = Modifier
@@ -187,14 +185,14 @@ fun PublishBottomBar(onSubmit: () -> Unit, ondiscard: () -> Unit) {
 
     Row(
         modifier = Modifier
-            .fillMaxWidth().background(MaterialTheme.colorScheme.primary)
+            .fillMaxWidth().background(MaterialTheme.colors.primary)
             .padding(16.dp), horizontalArrangement = Arrangement.End
     ) {
 
 
         OutlinedButton(onClick = { ondiscard() }) {
 
-            Text(text = "Discard", color = MaterialTheme.colorScheme.primaryContainer)//changed color to colorScheme and primaryVariant to primaryContainer
+            Text(text = "Discard", color = MaterialTheme.colors.primaryVariant)//changed color to colorScheme and primaryVariant to primaryContainer
         }
 
         Spacer(modifier = Modifier.width(16.dp))
@@ -203,9 +201,9 @@ fun PublishBottomBar(onSubmit: () -> Unit, ondiscard: () -> Unit) {
             onClick = {
                 onSubmit()
             },
-            colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primaryContainer)
+            colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primaryVariant)
         ) {
-            Text(text = "Submit", color = MaterialTheme.colorScheme.primary)
+            Text(text = "Submit", color = MaterialTheme.colors.primaryVariant)
         }
 
     }
@@ -216,7 +214,7 @@ fun PublishTopAppBar(ondiscard: () -> Unit) {
 
     Row(
         Modifier
-            .fillMaxWidth().background(MaterialTheme.colorScheme.primary),
+            .fillMaxWidth().background(MaterialTheme.colors.primary),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
@@ -226,13 +224,13 @@ fun PublishTopAppBar(ondiscard: () -> Unit) {
             modifier = Modifier
                 .padding(16.dp)
                 .clickable { ondiscard() },
-            tint = MaterialTheme.colorScheme.primaryContainer//changed color to colorScheme and primaryVariant to primaryContainer
+            tint = MaterialTheme.colors.primaryVariant//changed color to colorScheme and primaryVariant to primaryContainer
         )
         Text(
             text = "Publish",
             fontWeight = FontWeight.SemiBold,
             fontSize = 18.sp,
-            color = MaterialTheme.colorScheme.primaryContainer,//changed color to colorScheme and primaryVariant to variant
+            color = MaterialTheme.colors.primaryVariant,//changed color to colorScheme and primaryVariant to variant
         )
 
 

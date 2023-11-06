@@ -22,16 +22,15 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,7 +45,6 @@ import com.bright.ecommerce.Data.ProductViewmodel
 import com.bright.ecommerce.Model.Cartitem
 import com.bright.ecommerce.Model.Order
 import com.bright.ecommerce.Sealed.Cartsealed
-import com.google.firebase.inappmessaging.model.Button
 import java.util.Date
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -78,7 +76,6 @@ fun SummaryScreen(productViewmodel: ProductViewmodel, onback: () -> Unit, onSuce
 
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 
-
                 Text(text = "Error Fetching data!")
 
 
@@ -91,7 +88,6 @@ fun SummaryScreen(productViewmodel: ProductViewmodel, onback: () -> Unit, onSuce
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Summary(
@@ -105,7 +101,7 @@ fun Summary(
 
         LazyColumn(
             Modifier
-                .fillMaxSize().background(MaterialTheme.colorScheme.primary)
+                .fillMaxSize().background(MaterialTheme.colors.primary)
                 .padding(it)
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         )
@@ -126,7 +122,7 @@ fun Summary(
                     text = "Details",
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 18.sp,
-                    color = MaterialTheme.colorScheme.primaryContainer//changed color to colorScheme and primaryVariant to primaryContainer
+                    color = MaterialTheme.colors.primaryVariant//changed color to colorScheme and primaryVariant to primaryContainer
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -196,14 +192,14 @@ fun SummaryPrice(
                 text = "Subtotal",
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.primaryContainer//changed color to colorScheme and primaryVariant to primaryContainer
+                color = MaterialTheme.colors.primaryVariant//changed color to colorScheme and primaryVariant to primaryContainer
             )
 
             Text(
                 text = "$${total}",
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 14.sp,
-                color =  MaterialTheme.colorScheme.primaryContainer//changed color to colorScheme and primaryVariant to primaryContainer
+                color =  MaterialTheme.colors.primaryVariant//changed color to colorScheme and primaryVariant to primaryContainer
             )
         }
 
@@ -215,14 +211,14 @@ fun SummaryPrice(
                 text = "ShippingCharge",
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.primaryContainer
+                color = MaterialTheme.colors.primaryVariant
             )
 
             Text(
                 text = "$${2000}",
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.primaryContainer
+                color = MaterialTheme.colors.primaryVariant
             )
         }
 
@@ -234,14 +230,14 @@ fun SummaryPrice(
                 text = "Total",
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.primaryContainer
+                color = MaterialTheme.colors.primaryVariant
             )
 
             Text(
                 text = "$${total + 2000}",
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.primaryContainer
+                color = MaterialTheme.colors.primaryVariant
             )
         }
 
@@ -283,11 +279,11 @@ fun SummaryPrice(
                 }, modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp), colors = ButtonDefaults.buttonColors(
-                    MaterialTheme.colorScheme.primaryContainer//changed color to colorScheme and primaryVariant to primaryContainer
+                    MaterialTheme.colors.primaryVariant//changed color to colorScheme and primaryVariant to primaryContainer
                 )
             ) {
 
-                Text(text = "Place order", color = MaterialTheme.colorScheme.primary)
+                Text(text = "Place order", color = MaterialTheme.colors.primary)
             }
         }
     }
@@ -298,7 +294,7 @@ fun SummaryPrice(
 fun SummaryTopBar(onback: () -> Unit) {
     Row(
         Modifier
-            .fillMaxWidth().background(MaterialTheme.colorScheme.primary),
+            .fillMaxWidth().background(MaterialTheme.colors.primary),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
@@ -308,13 +304,13 @@ fun SummaryTopBar(onback: () -> Unit) {
             modifier = Modifier
                 .padding(16.dp)
                 .clickable { onback() },
-            tint = MaterialTheme.colorScheme.primaryContainer
+            tint = MaterialTheme.colors.primaryVariant
         )
         Text(
             text = "Summary",
             fontWeight = FontWeight.SemiBold,
             fontSize = 18.sp,
-            color = MaterialTheme.colorScheme.primaryContainer
+            color = MaterialTheme.colors.primaryVariant
         )
 
 
@@ -333,7 +329,7 @@ fun SummaryItem(cartitem: Cartitem) {
                 .padding(horizontal = 8.dp)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(16.dp))
-                .background(MaterialTheme.colorScheme.secondary)
+                .background(MaterialTheme.colors.secondary)
                 .padding(horizontal = 16.dp, vertical = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
@@ -345,14 +341,14 @@ fun SummaryItem(cartitem: Cartitem) {
                     text = cartitem.productname,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 18.sp,
-                    color = MaterialTheme.colorScheme.primaryContainer//changed color to colorScheme and primaryVariant to primaryContainer
+                    color = MaterialTheme.colors.primaryVariant//changed color to colorScheme and primaryVariant to primaryContainer
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
                     text = "$${cartitem.price} * ${cartitem.quantity} = $${cartitem.price * cartitem.quantity}",
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 16.sp,
-                    color = MaterialTheme.colorScheme.primaryContainer//changed color to colorScheme and primaryVariant to primaryContainer
+                    color = MaterialTheme.colors.primaryVariant//changed color to colorScheme and primaryVariant to primaryContainer
                 )
                 Spacer(modifier = Modifier.height(4.dp))
 
@@ -387,17 +383,17 @@ fun SumaryTextItem(cartitem: Cartitem) {
             .padding(vertical = 8.dp)
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
-            .background(MaterialTheme.colorScheme.secondary)
+            .background(MaterialTheme.colors.secondary)
             .padding(horizontal = 16.dp, vertical = 16.dp)
     ) {
 
-        Text(text = cartitem.productname, fontWeight = FontWeight.SemiBold, fontSize = 18.sp, color = MaterialTheme.colorScheme.primaryContainer)
+        Text(text = cartitem.productname, fontWeight = FontWeight.SemiBold, fontSize = 18.sp, color = MaterialTheme.colors.primaryVariant)
         Spacer(modifier = Modifier.height(2.dp))
         Text(
             text = "$${cartitem.price} * ${cartitem.quantity} = $${cartitem.price * cartitem.quantity}",
             fontWeight = FontWeight.SemiBold,
             fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.primaryContainer
+            color = MaterialTheme.colors.primaryVariant
         )
         Spacer(modifier = Modifier.height(4.dp))
 

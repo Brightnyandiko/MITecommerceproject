@@ -18,20 +18,19 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,6 +41,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.KeyboardType.Companion.Text
 import androidx.compose.ui.unit.dp
 import com.bright.ecommerce.Data.ProductViewmodel
 import com.bright.ecommerce.Model.Cartitem
@@ -61,7 +61,7 @@ fun SearchBar(productViewmodel: ProductViewmodel,ondiscard:()->Unit,onnext: (Pro
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 
 
-                CircularProgressIndicator(color = MaterialTheme.colorScheme.secondary)
+                CircularProgressIndicator(color = MaterialTheme.colors.secondary)
 
             }
 
@@ -127,7 +127,6 @@ fun SearchBar(productViewmodel: ProductViewmodel,ondiscard:()->Unit,onnext: (Pro
 
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Search(productViewmodel: ProductViewmodel, list: MutableList<Product>, ondiscard: () -> Unit) {
 
@@ -149,13 +148,13 @@ fun Search(productViewmodel: ProductViewmodel, list: MutableList<Product>, ondis
     }
 
 
-    Row(modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.primary),//changed color to colorScheme
+    Row(modifier = Modifier.fillMaxWidth().background(MaterialTheme.colors.primary),//changed color to colorScheme
         verticalAlignment = Alignment.CenterVertically) {
 
         Icon(
             imageVector = Icons.Default.ArrowBack,
             contentDescription = null,
-            modifier = Modifier.clickable { ondiscard() }, tint = MaterialTheme.colorScheme.primaryContainer)//changed color to colorScheme and primaryVariant to primaryContainer
+            modifier = Modifier.clickable { ondiscard() }, tint = MaterialTheme.colors.primaryVariant)//changed color to colorScheme and primaryVariant to primaryContainer
 
         Spacer(modifier = Modifier.width(8.dp))
 
@@ -176,7 +175,7 @@ fun Search(productViewmodel: ProductViewmodel, list: MutableList<Product>, ondis
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Rounded.Search,
-                    tint = MaterialTheme.colorScheme.primaryContainer,//changed color to colorScheme and primaryVariant to primaryContainer
+                    tint = MaterialTheme.colors.primaryVariant,//changed color to colorScheme and primaryVariant to primaryContainer
                     contentDescription = "Search icon"
                 )
             },
@@ -196,7 +195,7 @@ fun Search(productViewmodel: ProductViewmodel, list: MutableList<Product>, ondis
                     }) {
                         Icon(
                             imageVector = Icons.Rounded.Clear,
-                            tint = MaterialTheme.colorScheme.primaryContainer,
+                            tint = MaterialTheme.colors.primaryVariant,
                             contentDescription = "Clear icon"
                         )
                     }
@@ -204,23 +203,23 @@ fun Search(productViewmodel: ProductViewmodel, list: MutableList<Product>, ondis
             },
             maxLines = 1,
             colors = TextFieldDefaults.textFieldColors(
-                MaterialTheme.colorScheme.primary,
-                cursorColor = MaterialTheme.colorScheme.primaryContainer,
-                focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+                MaterialTheme.colors.primary,
+                cursorColor = MaterialTheme.colors.primaryVariant,
+                focusedIndicatorColor = MaterialTheme.colors.primary,
                 unfocusedIndicatorColor = Color.Transparent
             ),
             placeholder = { Text(text = "Search") },
-            textStyle = MaterialTheme.typography.bodyMedium,
+            textStyle = MaterialTheme.typography.body2,
             singleLine = true,
 
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            keyboardOptions = KeyboardOptions(keyboardType = Text),
             keyboardActions = KeyboardActions(onDone = {
                 focusManager.clearFocus()
             }),
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color.Transparent)
-                .border(width = 1.dp, color = MaterialTheme.colorScheme.primaryContainer, shape = CircleShape)
+                .border(width = 1.dp, color = MaterialTheme.colors.primaryVariant, shape = CircleShape)
 
 
         )
@@ -232,8 +231,6 @@ fun Search(productViewmodel: ProductViewmodel, list: MutableList<Product>, ondis
 
 
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SeacrhScreen(
     productViewmodel: ProductViewmodel,
@@ -248,12 +245,12 @@ fun SeacrhScreen(
     Scaffold(
         topBar = { Search(productViewmodel,list,ondiscard) },
         modifier = Modifier
-            .fillMaxSize().background(MaterialTheme.colorScheme.primary)
+            .fillMaxSize().background(MaterialTheme.colors.primary)
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
 
 
-        LazyVerticalGrid(columns = GridCells.Fixed(2), modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.primary).padding(it)){
+        LazyVerticalGrid(columns = GridCells.Fixed(2), modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.primary).padding(it)){
 
 
 
@@ -297,19 +294,19 @@ fun TextSeacrhBar(onnext:()->Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .height(52.dp)
-            .border(color = MaterialTheme.colorScheme.primaryContainer, width = 1.dp, shape = CircleShape)
+            .border(color = MaterialTheme.colors.primaryVariant, width = 1.dp, shape = CircleShape)
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .clickable { onnext() }
         , verticalAlignment = Alignment.CenterVertically
     ) {
 
 
-        Icon(imageVector = Icons.Default.Search, contentDescription = null, tint = MaterialTheme.colorScheme.primaryContainer)
+        Icon(imageVector = Icons.Default.Search, contentDescription = null, tint = MaterialTheme.colors.primaryVariant)
         Spacer(modifier = Modifier.width(16.dp))
         Text(
             text = "Search",
-            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle,
-            color= MaterialTheme.colorScheme.primaryContainer
+            fontStyle = MaterialTheme.typography.body2.fontStyle,
+            color= MaterialTheme.colors.primaryVariant
         )
 
 

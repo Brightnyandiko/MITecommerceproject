@@ -9,11 +9,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -74,13 +73,13 @@ fun FavouriteScreen(productViewmodel: ProductViewmodel,onnext:(Product)->Unit){
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun Favourite(productViewmodel: ProductViewmodel, favouritelist:MutableList<Product>, onnext: (Product) -> Unit){
 
-    Scaffold(topBar = { FavTopBar() }, modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.primary).padding(horizontal = 16.dp, vertical = 8.dp)) { paddingValues ->
+    Scaffold(topBar = { FavTopBar() }, modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.primary).padding(horizontal = 16.dp, vertical = 8.dp)) { paddingValues ->
 
-        LazyVerticalGrid(columns = GridCells.Fixed(2), modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.primary).padding(paddingValues)){
+        LazyVerticalGrid(columns = GridCells.Fixed(2), modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.primary).padding(paddingValues)){
 
             items(favouritelist){
 
@@ -105,7 +104,7 @@ fun FavTopBar() {
 
     Row(
         Modifier
-            .fillMaxWidth().background(MaterialTheme.colorScheme.primary).padding(horizontal = 16.dp, vertical = 8.dp),
+            .fillMaxWidth().background(MaterialTheme.colors.primary).padding(horizontal = 16.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
@@ -113,7 +112,7 @@ fun FavTopBar() {
             text = "Favourite",
             fontWeight = FontWeight.SemiBold,
             fontSize = 24.sp,
-            color = MaterialTheme.colorScheme.primary
+            color = MaterialTheme.colors.primaryVariant
         )
 
 
