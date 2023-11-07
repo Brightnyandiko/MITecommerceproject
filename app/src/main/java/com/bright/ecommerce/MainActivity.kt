@@ -415,7 +415,7 @@ import androidx.navigation.compose.rememberNavController
 import com.bright.ecommerce.Data.ProductRepositery
 import com.bright.ecommerce.Data.ProductViewmodel
 import com.bright.ecommerce.Sealed.E_commerce
-import com.bright.ecommerce.ui.theme.EcommerceTheme
+import com.bright.ecommerce.ui.theme.E_commerceTheme
 import com.bright.ecommerce.ui.theme.screens.Account.Account
 import com.bright.ecommerce.ui.theme.screens.Account.FavouriteScreen
 import com.bright.ecommerce.ui.theme.screens.Account.PublishScreen
@@ -450,7 +450,7 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             val istheme = remember{ mutableStateOf(false) }
-            EcommerceTheme(istheme.value) {
+            E_commerceTheme(istheme.value) {
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background
                 ) {
