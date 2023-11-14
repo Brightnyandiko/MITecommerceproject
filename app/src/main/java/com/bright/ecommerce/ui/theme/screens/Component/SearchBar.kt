@@ -148,13 +148,13 @@ fun Search(productViewmodel: ProductViewmodel, list: MutableList<Product>, ondis
     }
 
 
-    Row(modifier = Modifier.fillMaxWidth().background(MaterialTheme.colors.primary),//changed color to colorScheme
+    Row(modifier = Modifier.fillMaxWidth().background(MaterialTheme.colors.primary),
         verticalAlignment = Alignment.CenterVertically) {
 
         Icon(
             imageVector = Icons.Default.ArrowBack,
             contentDescription = null,
-            modifier = Modifier.clickable { ondiscard() }, tint = MaterialTheme.colors.primaryVariant)//changed color to colorScheme and primaryVariant to primaryContainer
+            modifier = Modifier.clickable { ondiscard() }, tint = MaterialTheme.colors.primaryVariant)
 
         Spacer(modifier = Modifier.width(8.dp))
 
@@ -175,7 +175,7 @@ fun Search(productViewmodel: ProductViewmodel, list: MutableList<Product>, ondis
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Rounded.Search,
-                    tint = MaterialTheme.colors.primaryVariant,//changed color to colorScheme and primaryVariant to primaryContainer
+                    tint = MaterialTheme.colors.primaryVariant,
                     contentDescription = "Search icon"
                 )
             },
@@ -203,9 +203,9 @@ fun Search(productViewmodel: ProductViewmodel, list: MutableList<Product>, ondis
             },
             maxLines = 1,
             colors = TextFieldDefaults.textFieldColors(
-                MaterialTheme.colors.primary,
+                MaterialTheme.colors.primaryVariant,
                 cursorColor = MaterialTheme.colors.primaryVariant,
-                focusedIndicatorColor = MaterialTheme.colors.primary,
+                focusedIndicatorColor = MaterialTheme.colors.primaryVariant,
                 unfocusedIndicatorColor = Color.Transparent
             ),
             placeholder = { Text(text = "Search") },

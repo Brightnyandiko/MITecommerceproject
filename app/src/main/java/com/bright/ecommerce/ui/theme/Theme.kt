@@ -72,28 +72,72 @@ package com.bright.ecommerce.ui.theme
 
 import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Shapes
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.Gray
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.text.font.FontWeight
 import androidx.core.view.WindowCompat
 
-private val DarkColorPalette = darkColors(
-    primary = Color.Black,
-    primaryVariant = Color.Black,
-    secondary = Color.LightGray,
+//private val DarkColorPalette = darkColors(
+//    primary = PurpleGrey40,
+//    primaryVariant = Color.White,
+//    secondary = Pink40,
+//
+//)
+//
+//private val LightColorPalette = lightColors(
+//    primary = Pink40,
+//    primaryVariant = Color.White,
+//    secondary = Color.LightGray
 
+
+//private val DarkColorPalette = darkColors(
+//    primary = Dark_Background,
+//    primaryVariant = Light,
+//    secondary = Dark_BackgroudVarient,
+//    onPrimary = Dark_OnPrimary
+//)
+//
+//private val LightColorPalette = lightColors(
+//    primary = Light_Background,
+//    primaryVariant = Black,
+//    secondary = Light_BackgroundVarient,
+//    onPrimary = Light_OnPrimary
+
+
+
+// Assuming these are color values defined elsewhere in your code
+val Dark_Background = Black// your color value
+val Light = White// your color value
+val Dark_BackgroundVariant = Gray// your color value
+val Dark_OnPrimary = Black// your color value
+
+val Light_Background = White// your color value
+val Light_BackgroundVariant = Gray// your color value
+val Light_OnPrimary = White// your color value
+
+    private val DarkColorPalette: Colors = darkColors(
+    primary = Dark_Background,
+    primaryVariant = Light,
+    secondary = Dark_BackgroundVariant,
+    onPrimary = Dark_OnPrimary
 )
 
-private val LightColorPalette = lightColors(
-    primary = Purple40,
-    primaryVariant = Purple80,
-    secondary = Pink40,
+private val LightColorPalette: Colors = lightColors(
+    primary = Light_Background,
+    primaryVariant = Black,
+    secondary = Light_BackgroundVariant,
+    onPrimary = Light_OnPrimary
+)
 
 
     /* Other default colors to override
@@ -104,7 +148,7 @@ private val LightColorPalette = lightColors(
     onBackground = Color.Black,
     onSurface = Color.Black,
     */
-)
+
 
 @Composable
 fun E_commerceTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
@@ -120,8 +164,8 @@ fun E_commerceTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Compos
 
             val window = (view.context as Activity).window
 
-            window.statusBarColor = if (darkTheme) Color.Black.toArgb() else Color.White.toArgb()
-            window.navigationBarColor = if (darkTheme) Color.Black.toArgb() else Color.White.toArgb()
+            window.statusBarColor = if (darkTheme) Black.toArgb() else White.toArgb()
+            window.navigationBarColor = if (darkTheme) Black.toArgb() else White.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
 
         }

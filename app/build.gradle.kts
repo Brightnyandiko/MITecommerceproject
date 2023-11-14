@@ -109,6 +109,7 @@ plugins {
     id ("com.google.gms.google-services")
     id ("kotlin-parcelize")
 
+
 }
 
 
@@ -159,17 +160,25 @@ android {
         }
     }
 //    sourceSets {
-//        main {
+//         main {
 //            assets {
-//                srcDirs "src\\main\\assets"
+//                srcDirs ("src/main/assets")
 //            }
 //        }
 //    }
+
+    sourceSets["main"].java {
+        srcDir("src/main/res/assets")
+    }
 }
 
 dependencies {
 
 
+    implementation("com.google.firebase:firebase-auth:22.2.0")
+    implementation("com.google.firebase:firebase-database:20.3.0")
+    implementation("com.google.firebase:firebase-firestore:24.9.1")
+    implementation("com.google.firebase:firebase-storage:20.3.0")
     val compose_ui_version = "1.5.4"
     implementation ("androidx.core:core-ktx:1.10.1")
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
@@ -177,9 +186,9 @@ dependencies {
     implementation ("androidx.compose.ui:ui:$compose_ui_version")
     implementation ("androidx.compose.ui:ui-tooling-preview:$compose_ui_version")
     implementation ("androidx.compose.material:material:1.4.3")
-    implementation ("com.google.firebase:firebase-auth-ktx:22.0.0")
-    implementation ("com.google.firebase:firebase-firestore-ktx:24.6.0")
-    implementation ("com.google.firebase:firebase-storage-ktx:20.2.0")
+    implementation ("com.google.firebase:firebase-auth-ktx:22.2.0")
+    implementation ("com.google.firebase:firebase-firestore-ktx:24.9.1")
+    implementation ("com.google.firebase:firebase-storage-ktx:20.3.0")
     testImplementation ("junit:junit:4.13.2")
     androidTestImplementation ("androidx.test.ext:junit:1.1.5")
     androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1")
@@ -210,4 +219,8 @@ dependencies {
     api ("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
 
 
+}
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }

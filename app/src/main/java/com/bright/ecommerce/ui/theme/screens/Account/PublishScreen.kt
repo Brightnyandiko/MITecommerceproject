@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.bright.ecommerce.Model.Product
-import com.example.e_commerce.R
+import com.bright.ecommerce.R
 import java.util.UUID
 
 

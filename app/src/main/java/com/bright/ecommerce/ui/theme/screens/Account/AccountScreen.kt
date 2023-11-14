@@ -78,16 +78,16 @@ fun Account(navController: NavController, @DrawableRes profileImage: Int) {
 
 
                 Text(
-                    text = "Azad Kumar",
+                    text = "Carlson brent",
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 18.sp,
-                    color = MaterialTheme.colors.primary,
+                    color = MaterialTheme.colors.primaryVariant,
                 )
                 Spacer(modifier = Modifier.height(2.dp))
 
 
                 Text(
-                    text = "Kumarazad2917@gmail.com",
+                    text = "carlsont98@gmail.com",
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 14.sp,
                     color = MaterialTheme.colors.primaryVariant,//changed from primaryVariant to primary and color to colorScheme
