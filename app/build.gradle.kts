@@ -179,6 +179,7 @@ dependencies {
     implementation("com.google.firebase:firebase-database:20.3.0")
     implementation("com.google.firebase:firebase-firestore:24.9.1")
     implementation("com.google.firebase:firebase-storage:20.3.0")
+    implementation("androidx.compose.material3:material3:1.1.2")
     val compose_ui_version = "1.5.4"
     implementation ("androidx.core:core-ktx:1.10.1")
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")

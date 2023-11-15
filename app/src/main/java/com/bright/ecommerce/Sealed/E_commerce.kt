@@ -10,6 +10,8 @@ sealed class E_commerce(val route:String,val label:String,val icons:ImageVector)
     object Order: E_commerce("Order","Order",Icons.Rounded.ShoppingBag)
     object Cart: E_commerce("favourite","favourite",Icons.Rounded.Favorite)
     object Account: E_commerce("Profile","Profile",Icons.Rounded.Person)
+    object Login:E_commerce("Login", "Login", Icons.Rounded.Person)
+    object Register:E_commerce("Register", "Register", Icons.Rounded.ArrowForward)
 
 
 

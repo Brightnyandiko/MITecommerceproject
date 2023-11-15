@@ -423,8 +423,10 @@ import com.bright.ecommerce.ui.theme.screens.Cart.Cart
 import com.bright.ecommerce.ui.theme.screens.Component.SearchBar
 import com.bright.ecommerce.ui.theme.screens.Home.Home
 import com.bright.ecommerce.ui.theme.screens.Home.ProductDetailScreen
+import com.bright.ecommerce.ui.theme.screens.Login.LoginScreen
 import com.bright.ecommerce.ui.theme.screens.Order.OrderScreen
 import com.bright.ecommerce.ui.theme.screens.Order.SuccessScreen
+import com.bright.ecommerce.ui.theme.screens.Register.RegisterScreen
 import com.bright.ecommerce.ui.theme.screens.Summary.SummaryScreen
 
 
@@ -475,8 +477,15 @@ class MainActivity : ComponentActivity() {
 
         NavHost(
             navController = navController,
-            startDestination = E_commerce.Home.route
+            startDestination = E_commerce.Login.route
         ) {
+            composable(route = E_commerce.Login.route){
+                LoginScreen(navController)
+            }
+
+            composable(route = E_commerce.Register.route){
+                RegisterScreen(navController)
+            }
 
             composable(route = E_commerce.Home.route) {
 
