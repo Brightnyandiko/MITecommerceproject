@@ -41,11 +41,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
+import com.bright.ecommerce.Data.AuthViewmodel
 import com.bright.ecommerce.Data.ProductViewmodel
 import com.bright.ecommerce.Model.Cartitem
 import com.bright.ecommerce.Model.Product
@@ -287,7 +290,11 @@ fun LazyHome(
 fun TopProduct(product: Product,onclick: (Product) -> Unit) {
 
 
-    Column(Modifier.fillMaxWidth().padding(end = 16.dp, top = 8.dp, bottom = 8.dp).clickable { onclick(product) }) {
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .padding(end = 16.dp, top = 8.dp, bottom = 8.dp)
+            .clickable { onclick(product) }) {
 
         AsyncImage(
             model = product.imageUrl.toUri(),
@@ -563,6 +570,8 @@ fun AppBar(oncart: () -> Unit, isthem: MutableState<Boolean>) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
+        var context= LocalContext.current
+        var navController= rememberNavController()
 
 
 
@@ -594,6 +603,33 @@ fun AppBar(oncart: () -> Unit, isthem: MutableState<Boolean>) {
             tint= MaterialTheme.colors.primaryVariant,
             modifier = Modifier.clickable { oncart() })
 
+        Row(horizontalArrangement = Arrangement.Start, modifier = Modifier.fillMaxWidth()) {
+            Text("sign out ",
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.clickable(onClick ={val mylogout= AuthViewmodel(navController, context )
+                    mylogout.logout()} )
+
+            )
+
+        }
+
     }
 
 }
+
+//@Composable
+//fun Signout() {
+//    var context= LocalContext.current
+//    var navController= rememberNavController()
+//
+//    Row(horizontalArrangement = Arrangement.Start, modifier = Modifier.fillMaxWidth()) {
+//        Text("sign out ",
+//            fontWeight = FontWeight.SemiBold,
+//            modifier = Modifier.clickable(onClick ={val mylogout= AuthViewmodel(navController, context )
+//                mylogout.logout()} )
+//
+//        )
+//
+//    }
+//
+//}

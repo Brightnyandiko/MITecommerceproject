@@ -25,16 +25,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.bright.ecommerce.Data.AuthViewmodel
 import com.bright.ecommerce.R
 import com.bright.ecommerce.Sealed.E_commerce
-import kotlinx.coroutines.flow.internal.NoOpContinuation.context
 
 
 //class RegisterActivity : ComponentActivity() {
@@ -54,6 +57,13 @@ import kotlinx.coroutines.flow.internal.NoOpContinuation.context
 
 @Composable
 fun RegisterScreen(navcontroller: NavHostController) {
+
+//    var email by remember { mutableStateOf(TextFieldValue("")) }
+//    var pass by remember { mutableStateOf(TextFieldValue("")) }
+//    var confirmpass by remember { mutableStateOf(TextFieldValue("")) }
+//    var context= LocalContext.current
+
+
     Column(modifier = Modifier.padding(16.dp)) {
         Spacer(modifier = Modifier.height(4.dp))
         HeaderText()
@@ -63,7 +73,9 @@ fun RegisterScreen(navcontroller: NavHostController) {
         EmailTextField()
         Spacer(modifier = Modifier.height(4.dp))
         PasswordTextField()
-        Spacer(modifier = Modifier.height(64.dp))
+        Spacer(modifier = Modifier.height(4.dp))
+        confirmpasswordTextField()
+        Spacer(modifier = Modifier.height(4.dp))
         ButtonRegister()
         Spacer(modifier = Modifier.height(16.dp))
         ButtonFBRegister()
@@ -85,47 +97,70 @@ private fun HeaderText() {
 
 @Composable
 private fun UsernameTextField(){
-    var name by remember { mutableStateOf("") }
+    var name by remember { mutableStateOf(TextFieldValue("")) }
     OutlinedTextField(
         value = name,
         onValueChange = {newText -> name = newText},
         label = { Text(text = "Username")},
         modifier = Modifier.fillMaxWidth(),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+//        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+        keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
         leadingIcon = { Icon(painter = painterResource(id = R.drawable.baseline_supervised_user_circle_24), contentDescription = "Email Icon")}
     )
 }
 
 @Composable
 private fun EmailTextField(){
-    var email by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf(TextFieldValue("")) }
     OutlinedTextField(
         value = email,
         onValueChange = {newText -> email = newText},
         label = { Text(text = "Email")},
         modifier = Modifier.fillMaxWidth(),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+//        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+        keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
         leadingIcon = { Icon(painter = painterResource(id = R.drawable.baseline_email_24), contentDescription = "Email Icon")}
     )
 }
 @Composable
 private fun PasswordTextField() {
-    var password by remember { mutableStateOf("") }
+    var pass by remember { mutableStateOf(TextFieldValue("")) }
     OutlinedTextField(
-        value = password,
-        onValueChange = { password = it },
+        value = pass,
+        onValueChange = { pass = it },
         label = { Text(text = "Password") },
         modifier = Modifier.fillMaxWidth(),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+//        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
+        leadingIcon = { Icon(painter = painterResource(id = R.drawable.baseline_lock_24), contentDescription = "Password Icon")}
+    )
+}
+
+@Composable
+fun confirmpasswordTextField() {
+    var confirmpass by remember { mutableStateOf(TextFieldValue("")) }
+
+    OutlinedTextField(
+        value = confirmpass,
+        onValueChange = { confirmpass = it },
+        label = { Text(text = "Confirm Password") },
+        modifier = Modifier.fillMaxWidth(),
+//        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
         leadingIcon = { Icon(painter = painterResource(id = R.drawable.baseline_lock_24), contentDescription = "Password Icon")}
     )
 }
 
 @Composable
  fun ButtonRegister() {
+    var pass by remember{ mutableStateOf(TextFieldValue("")) }
+    var email by remember{ mutableStateOf(TextFieldValue("")) }
+    var confirmpass by remember { mutableStateOf(TextFieldValue("")) }
+    var context= LocalContext.current
+    var navController= rememberNavController()
     Button(
-        onClick = { val myregister= AuthViewmodel(navController,context)
-            myregister.signup(email.text.trim(),pass.text.trim(),confirmpass.text.trim()) },
+        onClick = { val myregister= AuthViewmodel(navController, context)
+            myregister.signup(email.text.trim(),pass.text,confirmpass.text.trim()) },
         modifier = Modifier.fillMaxWidth(),
         contentPadding = PaddingValues(vertical = 16.dp, horizontal = 1.dp),
         colors = ButtonDefaults.buttonColors(Color.Red),
@@ -174,3 +209,4 @@ private fun ButtonToLogin(onClick: () -> Unit) {
         )
     }
 }
+

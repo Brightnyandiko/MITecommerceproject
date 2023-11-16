@@ -1,8 +1,6 @@
 package com.bright.ecommerce.ui.theme.screens.Login
 
 
-import android.content.Context
-import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +15,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -29,15 +26,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.bright.ecommerce.Data.AuthViewmodel
 import com.bright.ecommerce.R
 import com.bright.ecommerce.Sealed.E_commerce
-import com.bright.ecommerce.ui.theme.screens.Register.RegisterScreen
 
 
 //class LoginActivity : ComponentActivity() {
@@ -58,6 +58,10 @@ import com.bright.ecommerce.ui.theme.screens.Register.RegisterScreen
 @Composable
 fun LoginScreen(navController: NavHostController) {
     // Your login screen UI code
+
+//    var email by remember { mutableStateOf(TextFieldValue("")) }
+//    var pass by remember { mutableStateOf(TextFieldValue("")) }
+//    var context= LocalContext.current
 
     Column(modifier = Modifier.padding(16.dp)) {
         Spacer(modifier = Modifier.height(4.dp))
@@ -80,32 +84,30 @@ fun LoginScreen(navController: NavHostController) {
 }
 
 @Composable
-private fun HeaderText() {
+fun HeaderText() {
     Text(text = "Welcome", fontWeight = FontWeight.Bold, fontSize = 32.sp)
     Spacer(modifier = Modifier.height(2.dp))
     Text(text = "Sign in to continue,", fontWeight = FontWeight.Bold, fontSize = 26.sp, color = Color.Gray)
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun EmailTextField(){
+fun EmailTextField(){
     var email by remember { mutableStateOf("") }
     OutlinedTextField(
         value = email,
-        onValueChange = {newText -> email = newText},
+        onValueChange = { email = it },
         label = { Text(text = "Email")},
         modifier = Modifier.fillMaxWidth(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
         leadingIcon = { Icon(painter = painterResource(id = R.drawable.baseline_email_24), contentDescription = "Email Icon")}
     )
 }
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun PasswordTextField() {
-    var password by remember { mutableStateOf("") }
+    var pass by remember { mutableStateOf("") }
     OutlinedTextField(
-        value = password,
-        onValueChange = { password = it },
+        value = pass,
+        onValueChange = { pass = it },
         label = { Text(text = "Password") },
         modifier = Modifier.fillMaxWidth(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -114,9 +116,14 @@ private fun PasswordTextField() {
 }
 
 @Composable
-private fun ButtonLogin() {
+fun ButtonLogin() {
+    var pass by remember{ mutableStateOf(TextFieldValue("")) }
+    var email by remember{ mutableStateOf(TextFieldValue("")) }
+    var context= LocalContext.current
+    var navController= rememberNavController()
     Button(
-        onClick = { /*TODO*/ },
+        onClick = {val mylogin= AuthViewmodel(navController, context)
+            mylogin.login(email.text.trim(), pass.text.trim())},
         modifier = Modifier.fillMaxWidth(),
         contentPadding = PaddingValues(vertical = 16.dp, horizontal = 1.dp),
         colors = ButtonDefaults.buttonColors(Color.Red),
@@ -158,7 +165,7 @@ private fun ButtonGoogleLogin() {
 @Composable
 private fun ButtonToRegister(onClick: () -> Unit) {
     Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
-        Text("Haven't an account ? ")
+        Text("Don't have an account ? ")
         Text("Sign Up ",
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.clickable(onClick = onClick)
